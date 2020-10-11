@@ -12,21 +12,22 @@ namespace MoodAnalyser
             this.message = message;
         }
         public string AnalyseMood()
-        { try
+        {
+            try
             {
+                if (this.message.Equals(string.Empty))
+                {
+                    throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.EMPTY_MESSAGE, "Mood should not be Empty.");
+                }
                 if (this.message.Contains("Sad"))
-                {
                     return "SAD";
-                }
                 else
-                {
                     return "HAPPY";
-                }
             }
-            catch
+            catch (NullReferenceException)
             {
-                return "HAPPY";
+                throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NULL_MESSAGE, "Mood should not be Null.");
             }
-        } 
+        }
     }
 }

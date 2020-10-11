@@ -21,12 +21,48 @@ namespace MoodAnalyserMSTest
         public void TestMethodAnyMood()
         {
             //Arrange
-            string message = null;
+            string message = "I am in Any Mood";
             MoodAnalyse mood = new MoodAnalyse(message);
             //Act
             string result = mood.AnalyseMood();
             //Assert
             Assert.AreEqual(result, "HAPPY");
         }
+
+        [TestMethod]
+        public void TestMethodGivenNullThrowMoodAnalysisException()
+        {
+            try
+            {
+                //Arrange
+                string message = null;
+                MoodAnalyse moodAnalyser = new MoodAnalyse(message);
+                //Act
+                string result = moodAnalyser.AnalyseMood();
+            }
+            catch (MoodAnalysisException ex)
+            {
+                //Assert
+                Assert.AreEqual("Mood should not be Null.", ex.Message);
+            }
+        }
+        [TestMethod]
+        public void TestMethodGivenEmptyThrowMoodAnalysisException()
+        {
+            try
+            {
+                //Arrange
+                string message = "";
+                MoodAnalyse moodAnalyser = new MoodAnalyse(message);
+                //Act
+                string result = moodAnalyser.AnalyseMood();
+            }
+            catch (MoodAnalysisException ex)
+            {
+                //Assert
+                Assert.AreEqual("Mood should not be Empty.", ex.Message);
+            }
+        }
     }
 }
+
