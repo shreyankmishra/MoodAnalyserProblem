@@ -21,7 +21,7 @@ namespace MoodAnalyserMSTest
         public void TestMethodAnyMood()
         {
             //Arrange
-            string message = "I am in Any Mood";
+            string message = null;
             MoodAnalyse mood = new MoodAnalyse(message);
             //Act
             string result = mood.AnalyseMood();
