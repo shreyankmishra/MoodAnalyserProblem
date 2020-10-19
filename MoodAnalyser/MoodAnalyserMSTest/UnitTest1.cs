@@ -106,6 +106,56 @@ namespace MoodAnalyserMSTest
                 Assert.AreEqual("constructor not found", e.Message);
             }
         }
+        [TestMethod]
+        public void TestMethodGivenMoodAnalyserClassNameShouldReturnMoodAnalyserObjectParameterisedConstructor()
+        {
+
+            //Arrange
+            string className = "MoodAnalyser.MoodAnalyse";
+            string constructorName = "MoodAnalyse";
+            MoodAnalyse expectedObj = new MoodAnalyse("HAPPY");
+            //Act
+            object resultObj = MoodAnalyserFactory.CreateMoodAnalyserObjectParameterisedConstructor(className, constructorName);
+            //Assert
+            expectedObj.Equals(resultObj);
+        }
+
+        [TestMethod]
+        public void TestMethodGivenImproperClassNameShouldThrowMoodAnalysisExceptionParameterisedConstructor()
+        {
+            try
+            {
+                //Arrange
+                string className = "WrongNameSpace.MoodAnalyse";
+                string constructorName = "MoodAnalyse";
+                MoodAnalyse expectedObj = new MoodAnalyse("HAPPY");
+                //Act
+                object resultObj = MoodAnalyserFactory.CreateMoodAnalyserObjectParameterisedConstructor(className, constructorName);
+            }
+            catch (MoodAnalysisException e)
+            {
+                //Assert
+                Assert.AreEqual("class not found", e.Message);
+            }
+        }
+        [TestMethod]
+        public void TestMethodGivenImproperConstructorNameShouldThrowMoodAnalysisExceptionParameterisedConstructor()
+        {
+            try
+            {
+                //Arrange
+                string className = "MoodAnalyser.MoodAnalyse";
+                string constructorName = "WrongConstructorName";
+                MoodAnalyse expectedObj = new MoodAnalyse("HAPPY");
+                //Act
+                object resultObj = MoodAnalyserFactory.CreateMoodAnalyserObjectParameterisedConstructor(className, constructorName);
+            }
+            catch (MoodAnalysisException e)
+            {
+                //Assert
+                Assert.AreEqual("constructor not found", e.Message);
+            }
+        }
     }
 }
     
