@@ -7,6 +7,10 @@ namespace MoodAnalyser
     public class MoodAnalyse
     {
         private string message;
+        public MoodAnalyse()
+        {
+            this.message = "";
+        }
         public MoodAnalyse(string message)
         {
             this.message = message;
