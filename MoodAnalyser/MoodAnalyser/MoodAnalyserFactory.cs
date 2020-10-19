@@ -30,7 +30,7 @@ namespace MoodAnalyser
                 throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, "constructor not found");
             }
         }
-        public static object CreateMoodAnalyserObjectParameterisedConstructor(string className, string constructorName)
+        public static object CreateMoodAnalyserObjectParameterisedConstructor(string className, string constructorName, string message)
         {
             Type type = typeof(MoodAnalyse);
             if (type.Name.Equals(className) || type.FullName.Equals(className))
@@ -38,7 +38,7 @@ namespace MoodAnalyser
                 if (type.Name.Equals(constructorName))
                 {
                     ConstructorInfo ctor = type.GetConstructor(new[] { typeof(string) });
-                    object instance = ctor.Invoke(new object[] { "HAPPY" });
+                    object instance = ctor.Invoke(new object[] { message });
                     return instance;
                 }
                 else
@@ -49,6 +49,22 @@ namespace MoodAnalyser
             else
             {
                 throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, "class not found");
+            }
+        }
+        public static string AnalyseMood(string message, string methodName)
+        {
+            try
+            {
+                string className = "MoodAnalyser.MoodAnalyse";
+                Type type = Type.GetType(className);
+                object moodAnalyserObj = CreateMoodAnalyserObjectParameterisedConstructor(className, "MoodAnalyse", message);
+                MethodInfo methodInfo = type.GetMethod(methodName);
+                object mood = methodInfo.Invoke(moodAnalyserObj, null);
+                return mood.ToString();
+            }
+            catch (NullReferenceException)
+            {
+                throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, "no such method");
             }
         }
     }
